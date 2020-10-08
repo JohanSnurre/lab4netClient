@@ -1,0 +1,7 @@
+﻿  lab4netclient_real.cpp
+C:\Users\Johan\source\repos\lab4netclient_real\lab4netclient_real\lab4netclient_real.cpp(13,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Johan\source\repos\lab4netclient_real\lab4netclient_real\lab4netclient_real.cpp(209,7): warning C4101: 'buf': unreferenced local variable
+C:\Users\Johan\source\repos\lab4netclient_real\lab4netclient_real\lab4netclient_real.cpp(210,7): warning C4101: 'buff': unreferenced local variable
+C:\Users\Johan\source\repos\lab4netclient_real\lab4netclient_real\lab4netclient_real.cpp(33): warning C4172: returning address of local variable or temporary: a
+C:\Users\Johan\source\repos\lab4netclient_real\lab4netclient_real\lab4netclient_real.cpp(41): warning C4172: returning address of local variable or temporary: a
+  lab4netclient_real.vcxproj -> C:\Users\Johan\source\repos\lab4netclient_real\Debug\lab4netclient_real.exe
