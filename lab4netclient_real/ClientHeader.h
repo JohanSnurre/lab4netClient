@@ -1,3 +1,4 @@
+//Author: Johan Larsson, Johlax-8
 #pragma once
 #define MAXNAMELEN 32
 

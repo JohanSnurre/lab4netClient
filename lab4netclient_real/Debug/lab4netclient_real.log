@@ -1,5 +1,5 @@
 ﻿  lab4netclient_real.cpp
-C:\Users\Johan\source\repos\lab4netClient\lab4netclient_real\lab4netclient_real.cpp(335,7): warning C4101: 'recvBuf': unreferenced local variable
+C:\Users\Johan\source\repos\lab4netClient\lab4netclient_real\lab4netclient_real.cpp(301,7): warning C4101: 'recvBuf': unreferenced local variable
 C:\Users\Johan\source\repos\lab4netClient\lab4netclient_real\lab4netclient_real.cpp(40): warning C4172: returning address of local variable or temporary: pos
 C:\Users\Johan\source\repos\lab4netClient\lab4netclient_real\lab4netclient_real.cpp(53): warning C4172: returning address of local variable or temporary: pos
   lab4netclient_real.vcxproj -> C:\Users\Johan\source\repos\lab4netClient\Debug\lab4netclient_real.exe
