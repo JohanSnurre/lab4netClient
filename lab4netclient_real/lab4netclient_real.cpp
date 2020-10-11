@@ -202,19 +202,29 @@ void receiveInfo(SOCKET serverSock, SOCKET GUISock, sockaddr_in6 GUI,  int seqNu
 
 		receive = recv(serverSock, recvBuf, BUFLEN, 0);
 		MsgHead* head = (MsgHead*)recvBuf;
-		//std::cout << "Got packet with sequence number: " << head->seq_num << std::endl;
+		std::cout << "Got packet with playerID: " << head->id << std::endl;
 		//std::cout << head->type << " : " << head->id << " : " << head->length << " : " << head->seq_num << std::endl;
 		int ID = head->id;
 
 		if (head->type == Join) {
-			std::cout << "Join";
-			thisPlayerID = head->id;
+			
+			if (thisPlayerID == 0) {
+				std::cout << "Join";
+				thisPlayerID = head->id;
+			}
+			
 			
 		}
 
 		if (head->type == Leave) {
 			std::cout << "Leave";
-			
+			PlayerLeaveMsg* leave = (PlayerLeaveMsg*)recvBuf;
+			int* pos = getPos(ID);
+
+
+			insertToField(0, pos);
+
+
 
 
 
@@ -235,12 +245,12 @@ void receiveInfo(SOCKET serverSock, SOCKET GUISock, sockaddr_in6 GUI,  int seqNu
 		
 
 		if (head->type == Change) {
-			//std::cout << "Change" << std::endl;
+			std::cout << "Change" << std::endl;
 			ChangeMsg* change = (ChangeMsg*)head;
 			NewPlayerPositionMsg* NPPmsg = (NewPlayerPositionMsg*)head;
 			if (change->type == NewPlayerPosition) {
-				//std::cout << "NewPlayerPosition" << std::endl;
-				//std::cout << head->id << " : " << head->type << " : " << change->type << " : " << NPPmsg->pos.x << " : " << NPPmsg->pos.y << std::endl;
+				std::cout << "NewPlayerPosition" << std::endl;
+				std::cout << "ID: " << head->id << std::endl; // " : " << head->type << " : " << change->type << " : " << NPPmsg->pos.x << " : " << NPPmsg->pos.y << std::endl;
 				
 				
 
@@ -248,6 +258,7 @@ void receiveInfo(SOCKET serverSock, SOCKET GUISock, sockaddr_in6 GUI,  int seqNu
 				
 				x = NPPmsg->pos.x;
 				y = NPPmsg->pos.y;
+				std::cout << "Player " << head->id << " is now at position x=" << x << " and y=" << y << std::endl;
 				//std::cout << NPPmsg->pos.x << " : " << NPPmsg->pos.y << std::endl;
 				field[x][y] = NPPmsg->msg.head.id;
 				std::string color;
@@ -301,6 +312,7 @@ void receiveInfo(SOCKET serverSock, SOCKET GUISock, sockaddr_in6 GUI,  int seqNu
 
 			if (change->type == PlayerLeave) {
 				std::cout << "PlayerLeave" << std::endl;
+				
 				if (head->id == thisPlayerID) {
 					std::cout << "Disconnected from server" << std::endl;
 					return;
@@ -308,8 +320,13 @@ void receiveInfo(SOCKET serverSock, SOCKET GUISock, sockaddr_in6 GUI,  int seqNu
 				std::cout << "Player " << head->id << " left. Removing from board" << std::endl;
 				int *remove = getPos(head->id);
 				int x = *remove;
-				int y = *remove + 1;
+				int y = *(remove +1);
 				std::cout << x << " . " << y << std::endl;
+				
+				
+				std::string GUImsg;
+				GUImsg = std::to_string(x) + "," + std::to_string(y) + ",white";
+				updateGUI(GUISock, ID, GUI, GUImsg);
 				field[x][y] = 0;
 			}
 
@@ -387,11 +404,11 @@ int main()
 	int BytesSent = send(serverSock, sendBuf, BUFLEN, 0);
 
 
-	seqNum = seqNum + 1;
+	/*seqNum = seqNum + 1;
 	int receive = recv(serverSock, recvBuf, BUFLEN, 0);
 	MsgHead* head = (MsgHead*)recvBuf;
 	thisPlayerID = head->id;
-	std::cout << head->type << " : " << head->id << " : " << head->seq_num <<  std::endl;
+	std::cout << head->type << " : " << head->id << " : " << head->seq_num <<  std::endl;*/
 
 	
 
